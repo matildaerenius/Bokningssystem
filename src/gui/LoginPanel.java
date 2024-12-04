@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class LoginPanel extends JPanel {
 
-    public LoginPanel(BookingSystem parentFrame) {
+    public LoginPanel(ViewManager parentFrame) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 500));
 

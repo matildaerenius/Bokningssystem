@@ -3,16 +3,16 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class BookingSystem extends JFrame {
+public class ViewManager extends JFrame {
 
     private final CardLayout cardLayout;
     private final JPanel mainPanel;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(BookingSystem::new);
+        SwingUtilities.invokeLater(ViewManager::new);
     }
 
-    public BookingSystem() {
+    public ViewManager() {
         setTitle("Bokningssystem");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);

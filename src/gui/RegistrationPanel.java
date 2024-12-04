@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class RegistrationPanel extends JPanel {
 
-    public RegistrationPanel(BookingSystem parentFrame) {
+    public RegistrationPanel(ViewManager parentFrame) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 550));
 

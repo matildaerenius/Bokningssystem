@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class StartPanel extends JPanel {
 
-    public StartPanel(BookingSystem parentFrame) {
+    public StartPanel(ViewManager parentFrame) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 500));
 

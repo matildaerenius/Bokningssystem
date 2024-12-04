@@ -12,7 +12,7 @@ public class RegistrationPanel extends JPanel {
         // Laddar bilden och skalar om den
         ImageIcon originalIcon = new ImageIcon("src/resources/background.jpg");
         Image originalImage = originalIcon.getImage(); // Hämtar bilden som en Image
-        Image scaledImage = originalImage.getScaledInstance(400, 500, Image.SCALE_SMOOTH); // Skalar om bilden till 400x300
+        Image scaledImage = originalImage.getScaledInstance(400, 500, Image.SCALE_SMOOTH); // Skalar om bilden
         ImageIcon scaledIcon = new ImageIcon(scaledImage); // Skapar en ny ImageIcon med den skalade bilden
 
         // Lägger den skalade bilden som bakgrunden
@@ -146,7 +146,7 @@ public class RegistrationPanel extends JPanel {
             parentFrame.showCard("LoginPanel");
         });
 
-        backButton.addActionListener(e -> parentFrame.showCard("Login"));
+        backButton.addActionListener(e -> parentFrame.showCard("Start"));
 
         buttonPanel.add(registerButton);
         buttonPanel.add(backButton);

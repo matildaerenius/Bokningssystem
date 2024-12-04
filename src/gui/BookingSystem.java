@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class BookingSystem extends JFrame {
 
-    private CardLayout cardLayout;
-    private JPanel mainPanel;
+    private final CardLayout cardLayout;
+    private final JPanel mainPanel;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(BookingSystem::new);
@@ -22,10 +22,9 @@ public class BookingSystem extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Lägger till olika fönster
-        mainPanel.add(new StartPanel(this), "Login");
-        mainPanel.add(new UserLoginPanel(this), "UserLogin");
-        mainPanel.add(new BusinessLoginPanel(this), "BusinessLogin");
+        // Lägger till de olika windowsen
+        mainPanel.add(new StartPanel(this), "Start");
+        mainPanel.add(new LoginPanel(this), "Login");
         mainPanel.add(new RegistrationPanel(this), "Register");
 
         add(mainPanel);

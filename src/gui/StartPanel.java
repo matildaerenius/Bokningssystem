@@ -33,10 +33,10 @@ public class StartPanel extends JPanel {
 
         // Knappar för inloggning
         JButton userLoginButton = new JButton("Som kund");
-        userLoginButton.addActionListener(e -> parentFrame.showCard("UserLogin"));
+        userLoginButton.addActionListener(e -> parentFrame.showCard("Login"));
 
         JButton businessLoginButton = new JButton("Som företag");
-        businessLoginButton.addActionListener(e -> parentFrame.showCard("BusinessLogin"));
+        businessLoginButton.addActionListener(e -> parentFrame.showCard("Login"));
 
 
         // Stylar knapparna

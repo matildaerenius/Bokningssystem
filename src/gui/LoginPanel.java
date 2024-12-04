@@ -9,11 +9,8 @@ public class LoginPanel extends JPanel {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 500));
 
-        // Laddar bilden och skalar om den
-        ImageIcon originalIcon = new ImageIcon("src/resources/background.jpg");
-        Image originalImage = originalIcon.getImage(); // Hämtar bilden som en Image
-        Image scaledImage = originalImage.getScaledInstance(400, 500, Image.SCALE_SMOOTH); // Skalar om bilden
-        ImageIcon scaledIcon = new ImageIcon(scaledImage); // Skapar en ny ImageIcon med den skalade bilden
+        //Skapar en skalad bild
+        ImageIcon scaledIcon = ImageFactory.createScaledImageIcon("src/resources/background.jpg", 400, 500);
 
         // Lägger den skalade bilden som bakgrunden
         JLabel backgroundLabel = new JLabel(scaledIcon);

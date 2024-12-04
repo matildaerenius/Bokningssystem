@@ -32,7 +32,7 @@ public class LoginPanel extends JPanel {
         fieldPanel.setOpaque(false); // Gör panelen genomskinlig
         fieldPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
-        JLabel idLabel = new JLabel("Personnummer:");
+        JLabel idLabel = new JLabel("Personnummer / Org.nummer:");
         idLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
         JTextField idField = new JTextField();
         idField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -71,11 +71,12 @@ public class LoginPanel extends JPanel {
         // Panel för knappar
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false); // Gör panelen genomskinlig
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
 
         JButton loginButton = new JButton("Logga in");
         loginButton.setFocusable(false);
         loginButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        loginButton.setPreferredSize(new Dimension(200, 30));
+        loginButton.setPreferredSize(new Dimension(150, 30));
         loginButton.setBackground(Color.WHITE);
         loginButton.setForeground(Color.BLACK);
 

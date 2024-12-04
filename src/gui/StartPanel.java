@@ -17,18 +17,18 @@ public class StartPanel extends JPanel {
 
         // Lägger den skalade bilden som bakgrunden
         JLabel backgroundLabel = new JLabel(scaledIcon);
-        backgroundLabel.setLayout(new BorderLayout()); // Gör så att komponenter kan placeras ovanpå
+        backgroundLabel.setLayout(new GridBagLayout());  // Gör så att komponenter kan placeras ovanpå
         add(backgroundLabel);
 
         // Texten högst upp
         JLabel welcomeLabel = new JLabel("Logga in", SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Times New Roman", Font.BOLD, 26));
+        welcomeLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
         welcomeLabel.setForeground(Color.BLACK);
         welcomeLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Padding runt texten
 
         // Panel för inloggningsknappar
         JPanel loginButtonPanel = new JPanel();
-        loginButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10)); // Gör så att knapparna ligger bredvid varandra
+        loginButtonPanel.setLayout(new GridLayout(2, 1, 15, 15));
         loginButtonPanel.setOpaque(false); // Gör panelen genomskinlig
 
         // Knappar för inloggning
@@ -42,16 +42,29 @@ public class StartPanel extends JPanel {
         // Stylar knapparna
         JButton[] loginButtons = {userLoginButton, businessLoginButton};
         for (JButton button : loginButtons) {
-            button.setFont(new Font("Times New Roman", Font.BOLD, 16));
-            button.setPreferredSize(new Dimension(200, 40));
+            button.setFont(new Font("Times New Roman", Font.BOLD, 18));
+            button.setPreferredSize(new Dimension(240, 40));
             button.setFocusable(false);
-            button.setBackground(Color.WHITE); // TILLFÄLLIG FÄRG
+            button.setBackground(Color.WHITE); // TILLFÄLLIG FÄRG kanske
             button.setForeground(Color.BLACK);
-            button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Lägger till kant
+//            button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Lägger till kant
         }
 
         loginButtonPanel.add(userLoginButton);
         loginButtonPanel.add(businessLoginButton);
+
+        // Lägger till texten, knapparna och registreringslänk i GridBagLayout
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 0, 10, 0); // Mellanrum mellan komponenterna
+        gbc.gridx = 0; // Centrerar
+        gbc.gridy = 0; // Översta komponenten
+        gbc.anchor = GridBagConstraints.CENTER;
+        backgroundLabel.add(welcomeLabel, gbc);
+
+        gbc.gridy = 1; // Under texten
+        backgroundLabel.add(loginButtonPanel, gbc);
+
+        gbc.gridy = 2; // Nederst
 
 
         // "Registrera dig"-länken
@@ -68,9 +81,6 @@ public class StartPanel extends JPanel {
             }
         });
 
-        // Lägger till texten och komponenterna till bakgrundslabel
-        backgroundLabel.add(welcomeLabel, BorderLayout.NORTH);
-        backgroundLabel.add(loginButtonPanel, BorderLayout.CENTER);
-        backgroundLabel.add(registerLabel, BorderLayout.SOUTH);
+        backgroundLabel.add(registerLabel, gbc);
     }
 }

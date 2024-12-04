@@ -64,13 +64,13 @@ public class RegistrationPanel extends JPanel {
         showPasswordCheckBox.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         showPasswordCheckBox.addActionListener(e -> {
             if (showPasswordCheckBox.isSelected()) {
-                passwordField.setEchoChar((char) 0); // Visa texten i lösenordsfältet
+                passwordField.setEchoChar((char) 0); // Visar texten i lösenordsfältet
             } else {
                 passwordField.setEchoChar('*'); // Döljer texten med stjärnor
             }
         });
 
-        // Lägg till komponenter till fieldPanel
+        // Lägger till komponenter till fieldPanel
         fieldPanel.add(firstNameLabel);
         fieldPanel.add(firstNameField);
         fieldPanel.add(Box.createVerticalStrut(10));
@@ -119,7 +119,7 @@ public class RegistrationPanel extends JPanel {
             String email = emailField.getText();
             String password = new String(passwordField.getPassword());
 
-            // Kontrollera att alla fält är ifyllda
+            // Kontrollerar att alla fält är ifyllda
             if (firstName.isEmpty() || lastName.isEmpty() || id.isEmpty() ||
                     phonenumber.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Alla fält måste vara ifyllda.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);

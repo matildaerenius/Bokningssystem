@@ -38,7 +38,7 @@ public class RegistrationPanel extends JPanel {
         JTextField lastNameField = new JTextField();
         lastNameField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
-        JLabel idLabel = new JLabel("Personnummer:");
+        JLabel idLabel = new JLabel("Personnummer (yymmddxxxx):");
         idLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
         JTextField idField = new JTextField();
         idField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -125,6 +125,21 @@ public class RegistrationPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Alla fält måste vara ifyllda.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            // Kontrollerar att persnr består av siffror och endast 10st
+        if (id.length() != 10 || !id.chars().allMatch(Character::isDigit)) {
+            JOptionPane.showMessageDialog(this, "Ange personnummer i tio siffror", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Kontrollerar att telnr består av siffror och endast 10st
+        if (phonenumber.length() != 10 || !phonenumber.chars().allMatch(Character::isDigit)) {
+            JOptionPane.showMessageDialog(this, "Ange ett korrekt telefonnummer", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Kontrollerar om e-postadressen innehåller @
+        if (!email.contains("@")) {
+            JOptionPane.showMessageDialog(this, "Ange en korrekt e-postadress", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
             // TODO: Lägg till registreringslogik
             JOptionPane.showMessageDialog(this, "Registrerad:\n" + firstName + " " + lastName);

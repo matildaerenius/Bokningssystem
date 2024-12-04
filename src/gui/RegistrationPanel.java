@@ -5,6 +5,14 @@ import java.awt.*;
 
 public class RegistrationPanel extends JPanel {
 
+    //TODO egen enum klass för dessa
+    //Index i String[] labelNames[] för att göra det tydligare vad som är på vilken plats
+    private static final int FIRSTNAME = 0;
+    private static final int LASTNAME = 1;
+    private static final int PERSON_NR = 2;
+    private static final int TELEFON_NR = 3;
+    private static final int EPOST = 4;
+
     public RegistrationPanel(ViewManager parentFrame) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 550));
@@ -24,31 +32,28 @@ public class RegistrationPanel extends JPanel {
         fieldPanel.setOpaque(false); // Gör panelen genomskinlig
         fieldPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // TODO: förkorta, lista och for loop?
-        JLabel firstNameLabel = new JLabel("Förnamn:");
-        firstNameLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        JTextField firstNameField = new JTextField();
-        firstNameField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        //Array med namn på knapparna
+        String[] labelNames = new String[]{
+                "Förnamn:",
+                "Efternamn:",
+                "Personnummer (yymmddxxxx):",
+                "Telefonnummer:",
+                "Epostadress:"
+        };
 
-        JLabel lastNameLabel = new JLabel("Efternamn:");
-        lastNameLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        JTextField lastNameField = new JTextField();
-        lastNameField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        JLabel[] labels = new JLabel[labelNames.length]; //Arrays för att spara labels och fields
+        JTextField[] fields = new JTextField[labelNames.length];
 
-        JLabel idLabel = new JLabel("Personnummer (yymmddxxxx):");
-        idLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        JTextField idField = new JTextField();
-        idField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
-        JLabel phonenumberLabel = new JLabel("Telefonnummer:");
-        phonenumberLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        JTextField phonenumberField = new JTextField();
-        phonenumberField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
-        JLabel emailLabel = new JLabel("E-postadress:");
-        emailLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        JTextField emailField = new JTextField();
-        emailField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        //loopar igenom labelNames
+        for (int i = 0; i < labelNames.length; i++) {
+            labels[i] = new JLabel(labelNames[i]); //label med texten som är i labelNames på det indexet
+            labels[i].setFont(new Font("Times New Roman", Font.BOLD, 16));
+            fieldPanel.add(labels[i]); //lägger till i fieldPanel
+            fields[i] = new JTextField();
+            fields[i].setFont(new Font("Times New Roman", Font.PLAIN, 14));
+            fieldPanel.add(fields[i]); //lägger till i fieldPanel
+            fieldPanel.add(Box.createVerticalStrut(10)); //Box för mellanrum
+        }
 
         JLabel passwordLabel = new JLabel("Lösenord:");
         passwordLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
@@ -68,21 +73,6 @@ public class RegistrationPanel extends JPanel {
         });
 
         // Lägger till komponenter till fieldPanel
-        fieldPanel.add(firstNameLabel);
-        fieldPanel.add(firstNameField);
-        fieldPanel.add(Box.createVerticalStrut(10));
-        fieldPanel.add(lastNameLabel);
-        fieldPanel.add(lastNameField);
-        fieldPanel.add(Box.createVerticalStrut(10));
-        fieldPanel.add(idLabel);
-        fieldPanel.add(idField);
-        fieldPanel.add(Box.createVerticalStrut(10));
-        fieldPanel.add(phonenumberLabel);
-        fieldPanel.add(phonenumberField);
-        fieldPanel.add(Box.createVerticalStrut(10));
-        fieldPanel.add(emailLabel);
-        fieldPanel.add(emailField);
-        fieldPanel.add(Box.createVerticalStrut(10));
         fieldPanel.add(passwordLabel);
         fieldPanel.add(passwordField);
         fieldPanel.add(Box.createVerticalStrut(10));
@@ -109,11 +99,11 @@ public class RegistrationPanel extends JPanel {
 
         // ActionListeners för knappar
         registerButton.addActionListener(e -> {
-            String firstName = firstNameField.getText();
-            String lastName = lastNameField.getText();
-            String id = idField.getText();
-            String phonenumber = phonenumberField.getText();
-            String email = emailField.getText();
+            String firstName = fields[FIRSTNAME].getText();
+            String lastName = fields[LASTNAME].getText();
+            String id = fields[PERSON_NR].getText();
+            String phonenumber = fields[TELEFON_NR].getText();
+            String email = fields[EPOST].getText();
             String password = new String(passwordField.getPassword());
 
             // Kontrollerar att alla fält är ifyllda

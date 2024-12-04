@@ -24,9 +24,9 @@ public class BookingSystem extends JFrame {
 
         // Lägger till olika fönster
         mainPanel.add(new StartPanel(this), "Login");
-        mainPanel.add(new CustomerLoginPanel(this), "CustomerLogin");
-        mainPanel.add(new CompanyLoginPanel(this), "CompanyLogin");
-        mainPanel.add(new RegisterPanel(this), "Register");
+        mainPanel.add(new UserLoginPanel(this), "CustomerLogin");
+        mainPanel.add(new BusinessLoginPanel(this), "CompanyLogin");
+        mainPanel.add(new RegistrationPanel(this), "Register");
 
         add(mainPanel);
         setLocationRelativeTo(null);

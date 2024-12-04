@@ -3,9 +3,9 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class RegisterPanel extends JPanel {
+public class RegistrationPanel extends JPanel {
 
-    public RegisterPanel(BookingSystem parentFrame) {
+    public RegistrationPanel(BookingSystem parentFrame) {
         setLayout(new GridLayout(7, 2, 10, 10));
 
         JLabel firstNameLabel = new JLabel("Förnamn:");

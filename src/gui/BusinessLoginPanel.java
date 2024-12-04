@@ -3,12 +3,12 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class CustomerLoginPanel extends JPanel {
+public class BusinessLoginPanel extends JPanel {
 
-    public CustomerLoginPanel(BookingSystem parentFrame) {
+    public BusinessLoginPanel(BookingSystem parentFrame) {
         setLayout(new GridLayout(3, 2, 10, 10));
 
-        JLabel idLabel = new JLabel("Personnummer:");
+        JLabel idLabel = new JLabel("Org.nummer:");
         JLabel passwordLabel = new JLabel("Lösenord:");
         JTextField idField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
@@ -18,7 +18,8 @@ public class CustomerLoginPanel extends JPanel {
         loginButton.addActionListener(e -> {
             String id = idField.getText();
             String password = new String(passwordField.getPassword());
-            JOptionPane.showMessageDialog(this, "Inloggad som kund: " + id);
+
+            JOptionPane.showMessageDialog(this, "Inloggad som företag: " + id);
             parentFrame.showCard("Login");
         });
 

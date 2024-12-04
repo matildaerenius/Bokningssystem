@@ -141,9 +141,12 @@ public class RegistrationPanel extends JPanel {
             return;
         }
 
-            // TODO: Lägg till registreringslogik
-            JOptionPane.showMessageDialog(this, "Registrerad:\n" + firstName + " " + lastName);
-            parentFrame.showCard("LoginPanel");
+            // TODO: Lägg till registreringslogik, nedan är om registeringen sköts i någon form av UserDataManager för att spara till fil
+//            User newUser = UserFactory.createUser("Customer", id, firstName + " " + lastName, email, password);
+//            UserDataManager.getInstance().registerUser(newUser);
+//
+//            JOptionPane.showMessageDialog(this, "Registrering lyckades!");
+//            parentFrame.showCard("Login");
         });
 
         backButton.addActionListener(e -> parentFrame.showCard("Start"));

@@ -1,4 +1,7 @@
 package gui;
 
-public class BookingPanel {
+import javax.swing.*;
+
+public class BookingPanel extends JPanel {
+
 }

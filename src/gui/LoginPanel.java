@@ -98,9 +98,14 @@ public class LoginPanel extends JPanel {
                 return;
             }
 
-            // TODO: Inloggningslogik
-            JOptionPane.showMessageDialog(this, "Inloggad som kund: " + id);
-            parentFrame.showCard("Login");
+            // TODO: Inloggningslogik, nedan är om inloggning sker i genom någon form av UserDataManager för att söka igenom fil med användare tex
+//            User user = UserDataManager.getInstance().loginUser(id, password);
+//            if (user != null) {
+//                JOptionPane.showMessageDialog(this, "Inloggad som: " + user.name);
+//                parentFrame.showCard("Start"); // OBS: ska ändras till bookingpanel när den är fixad
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Felaktiga inloggningsuppgifter.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+//            }
         });
 
         // Action listener för backButton

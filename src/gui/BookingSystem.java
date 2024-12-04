@@ -15,7 +15,7 @@ public class BookingSystem extends JFrame {
     public BookingSystem() {
         setTitle("Bokningssystem");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(400, 500);
         setResizable(false);
         setFocusable(false);
 
@@ -24,8 +24,8 @@ public class BookingSystem extends JFrame {
 
         // Lägger till olika fönster
         mainPanel.add(new StartPanel(this), "Login");
-        mainPanel.add(new UserLoginPanel(this), "CustomerLogin");
-        mainPanel.add(new BusinessLoginPanel(this), "CompanyLogin");
+        mainPanel.add(new UserLoginPanel(this), "UserLogin");
+        mainPanel.add(new BusinessLoginPanel(this), "BusinessLogin");
         mainPanel.add(new RegistrationPanel(this), "Register");
 
         add(mainPanel);

@@ -1,6 +1,7 @@
 package gui;
 
 import data.UserDataManager;
+import models.Admin;
 import models.User;
 
 import javax.swing.*;
@@ -102,7 +103,7 @@ public class LoginPanel extends JPanel {
             User user = UserDataManager.getInstance().authenticateUser(id, password);
             if (user != null) {
                 JOptionPane.showMessageDialog(this, "Inloggad som: " + user.getName());
-                parentFrame.showCard("Booking");
+                parentFrame.showCard(user instanceof Admin ? "AdminPanel" : "Booking");
             } else {
                 JOptionPane.showMessageDialog(this, "Felaktiga inloggningsuppgifter.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
             }

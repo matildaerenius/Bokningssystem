@@ -1,5 +1,7 @@
 package data;
 
+import models.Admin;
+import models.Customer;
 import models.User;
 
 import java.io.*;
@@ -27,16 +29,19 @@ public class UserDataManager {
             String line = reader.readLine(); // Skippar första raden
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 5) {
-                    User user = new User(parts[0], parts[1], parts[2], parts[3], parts[4]);
+                if (parts.length == 6) {
+                    String userType = parts[5];
+                    User user = userType.equals("Customer") ?
+                            new Customer(parts[0], parts[1], parts[2], parts[3], parts[4]) :
+                            new Admin(parts[0], parts[1], parts[2], parts[3], parts[4]);
                     users.put(user.getId(), user);
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error loading users from file", e);
         }
     }
-
+    // TODO : Denna kanske inte behövs
     private void saveUsersToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             writer.write("ID,Name,Email,Phonenumber,Password\n");
@@ -53,7 +58,7 @@ public class UserDataManager {
         }
     }
 
-    public boolean registerUser(User newUser) {
+    public boolean registerUser(User newUser, String userType) {
         if (users.containsKey(newUser.getId())) {
             return false; // User finns redan med det personnumret
         }

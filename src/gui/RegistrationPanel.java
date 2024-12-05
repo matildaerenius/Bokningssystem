@@ -112,6 +112,7 @@ public class RegistrationPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Alla fält måste vara ifyllda.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            // TODO: alla nedan kontroller kan nog göras med regex istället, kanske inte behövs ändras men
             // Kontrollerar att persnr består av siffror och endast 10st
         if (id.length() != 10 || !id.chars().allMatch(Character::isDigit)) {
             JOptionPane.showMessageDialog(this, "Ange personnummer i tio siffror", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
@@ -119,12 +120,12 @@ public class RegistrationPanel extends JPanel {
         }
         // Kontrollerar att telnr består av siffror och endast 10st
         if (phonenumber.length() != 10 || !phonenumber.chars().allMatch(Character::isDigit)) {
-            JOptionPane.showMessageDialog(this, "Ange ett korrekt telefonnummer", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ogiltigt telefonnummer", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
             return;
         }
         // Kontrollerar om e-postadressen innehåller @
         if (!email.contains("@")) {
-            JOptionPane.showMessageDialog(this, "Ange en korrekt e-postadress", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ogiltig e-postadress", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

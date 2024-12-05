@@ -1,5 +1,8 @@
 package gui;
 
+import data.UserDataManager;
+import models.User;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -96,13 +99,13 @@ public class LoginPanel extends JPanel {
             }
 
             // TODO: Inloggningslogik, nedan är om inloggning sker i genom någon form av UserDataManager för att söka igenom fil med användare tex
-//            User user = UserDataManager.getInstance().loginUser(id, password);
-//            if (user != null) {
-//                JOptionPane.showMessageDialog(this, "Inloggad som: " + user.name);
-//                parentFrame.showCard("Start"); // OBS: ska ändras till bookingpanel när den är fixad
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Felaktiga inloggningsuppgifter.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
-//            }
+            User user = UserDataManager.getInstance().authenticateUser(id, password);
+            if (user != null) {
+                JOptionPane.showMessageDialog(this, "Inloggad som: " + user.getName());
+                parentFrame.showCard("Booking");
+            } else {
+                JOptionPane.showMessageDialog(this, "Felaktiga inloggningsuppgifter.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         // Action listener för backButton

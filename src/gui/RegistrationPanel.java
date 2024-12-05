@@ -1,5 +1,8 @@
 package gui;
 
+import data.UserDataManager;
+import models.User;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -130,11 +133,14 @@ public class RegistrationPanel extends JPanel {
         }
 
             // TODO: Lägg till registreringslogik, nedan är om registeringen sköts i någon form av UserDataManager för att spara till fil
-//            User newUser = UserFactory.createUser("Customer", id, firstName + " " + lastName, email, password);
-//            UserDataManager.getInstance().registerUser(newUser);
-//
-//            JOptionPane.showMessageDialog(this, "Registrering lyckades!");
-//            parentFrame.showCard("Login");
+            User newUser = new User(id, firstName + " " + lastName, email, phonenumber, password);
+            boolean success = UserDataManager.getInstance().registerUser(newUser);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Registrering lyckades!");
+                parentFrame.showCard("Login");
+            } else {
+                JOptionPane.showMessageDialog(this, "Användare med detta personnummer finns redan.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         backButton.addActionListener(e -> parentFrame.showCard("Start"));

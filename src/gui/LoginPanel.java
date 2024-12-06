@@ -98,11 +98,11 @@ public class LoginPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Alla fält måste vara ifyllda.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            // Läser från fil
             User user = UserDataManager.getInstance().authenticateUser(id, password);
             if (user != null) {
                 JOptionPane.showMessageDialog(this, "Inloggad som: " + user.getName());
-                parentFrame.showCard(user instanceof Admin ? "AdminPanel" : "Booking");
+                parentFrame.showBookingPanel(user);
             } else {
                 JOptionPane.showMessageDialog(this, "Felaktiga inloggningsuppgifter.", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
             }

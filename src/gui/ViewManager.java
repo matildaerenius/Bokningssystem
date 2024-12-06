@@ -1,5 +1,8 @@
 package gui;
 
+import models.Admin;
+import models.User;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,6 +37,13 @@ public class ViewManager extends JFrame {
 
     public void showCard(String cardName) {
         cardLayout.show(mainPanel, cardName);
+    }
+
+    public void showBookingPanel(User user) {
+        // Skapa BookingPanel baserat på om användaren är Customer eller Admin
+        BookingPanel bookingPanel = new BookingPanel(user instanceof Admin, user.getEmail());
+        mainPanel.add(bookingPanel, "Booking");
+        cardLayout.show(mainPanel, "Booking");
     }
 }
 

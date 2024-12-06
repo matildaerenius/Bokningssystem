@@ -132,7 +132,7 @@ public class RegistrationPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Ogiltig e-postadress", "Felmeddelande", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+            // Sparar till fil
             User newUser = new Customer(id, firstName + " " + lastName, email, phonenumber, password);
             boolean success = UserDataManager.getInstance().registerUser(newUser, "Customer");
             if (success) {

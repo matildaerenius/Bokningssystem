@@ -99,7 +99,6 @@ public class LoginPanel extends JPanel {
                 return;
             }
 
-            // TODO: Inloggningslogik, nedan är om inloggning sker i genom någon form av UserDataManager för att söka igenom fil med användare tex
             User user = UserDataManager.getInstance().authenticateUser(id, password);
             if (user != null) {
                 JOptionPane.showMessageDialog(this, "Inloggad som: " + user.getName());

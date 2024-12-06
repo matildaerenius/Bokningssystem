@@ -1,7 +1,9 @@
 package models;
 
 public class Customer extends User {
+    private final String pID;
     public Customer(String id, String name, String email, String phoneNumber, String password) {
-        super(id, name, email, phoneNumber, password);
+        super(name, email, phoneNumber, password);
+        pID = id;
     }
 }

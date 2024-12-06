@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
@@ -194,11 +193,32 @@ public class BookingPanel extends JPanel {
     }
 
     private void addTimeSlot() {
+        int selectedRow = calendarTable.getSelectedRow();
+        int selectedCol = calendarTable.getSelectedColumn();
+        if (selectedRow < 0 || selectedCol < 0) {
+            JOptionPane.showMessageDialog(this, "Välj ett datum i kalendern först!", "Fel", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Object dayObj = calendarTable.getValueAt(selectedRow, selectedCol);
+        if (dayObj == null || dayObj.toString().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Välj ett giltigt datum i kalendern först!", "Fel", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        LocalDate selectedDate = currentMonth.withDayOfMonth(Integer.parseInt(dayObj.toString()));
+
         String time = JOptionPane.showInputDialog(this, "Ange en ny tid (HH:mm):", "Lägg till tid", JOptionPane.PLAIN_MESSAGE);
         if (time != null && !time.isEmpty()) {
-            LocalDate selectedDate = currentMonth.withDayOfMonth(1);
-            timeSlots.computeIfAbsent(selectedDate, d -> new ArrayList<>()).add(time);
-            JOptionPane.showMessageDialog(this, "Ny tid tillagd: " + selectedDate + " kl " + time);
+            // Kontrollera om tiden redan finns
+            List<String> times = timeSlots.computeIfAbsent(selectedDate, d -> new ArrayList<>(availableTimes));
+            if (!times.contains(time)) {
+                times.add(time); // Lägg till den nya tiden
+                times.sort(String::compareTo); // Sortera tiderna
+                JOptionPane.showMessageDialog(this, "Ny tid tillagd: " + selectedDate + " kl " + time);
+            } else {
+                JOptionPane.showMessageDialog(this, "Tiden finns redan: " + selectedDate + " kl " + time, "Fel", JOptionPane.WARNING_MESSAGE);
+            }
             updateTimePanel();
         }
     }

@@ -9,7 +9,7 @@ public class Testbooking {
             JFrame frame = new JFrame("Test BookingPanel");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            BookingPanel bookingPanel = new BookingPanel(false, "test@example.com");
+            BookingPanel bookingPanel = new BookingPanel(true, "test@example.com");
 
             frame.add(bookingPanel);
             frame.setSize(600, 500);

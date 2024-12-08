@@ -25,8 +25,8 @@ public class AppointmentManager {
     }
 
     public boolean bookAppointment(Customer customer, String date, String startTime, String endTime) {
-        TimeFrame timeFrame = new TimeFrame(startTime, endTime, date);
-        Booking booking = new Booking(timeFrame, "Appointment", customer);
+        TimeFrame timeFrame = new TimeFrame(date, startTime, endTime);
+        Booking booking = new Booking(timeFrame, "Booked", customer);
 
         if (!timeFrameOverlaps(LocalDate.parse(date), timeFrame)) {
             databaseDao.createBooking(booking);

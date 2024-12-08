@@ -40,7 +40,10 @@ public class DatabaseManager implements DatabaseDao {
                 if (parts.length >= 4) {
                     TimeFrame timeFrame = new TimeFrame(parts[0], parts[1], parts[2]);
                     String description = parts[3];
-                    Customer customer = parts.length > 4 ? new Customer(parts[4], parts[5], parts[6], parts[7], parts[8]) : null;
+                    Customer customer = null;
+                    if (parts.length > 4) {
+                        customer = new Customer(parts[4], parts[5], parts[6], parts[7], parts[8]);
+                    }
                     bookings.add(new Booking(timeFrame, description, customer));
                 }
             }
@@ -96,7 +99,7 @@ public class DatabaseManager implements DatabaseDao {
     public List<Booking> getAppointmentsForUser(Customer customer) {
         List<Booking> userBookings = new ArrayList<>();
         for (Booking booking : bookings) {
-            if (booking.getCustomer() != null && booking.getCustomer().equals(customer)) {
+            if (booking.getCustomer() != null && booking.getCustomer().getPID().equals(customer.getPID())) {
                 userBookings.add(booking);
             }
         }

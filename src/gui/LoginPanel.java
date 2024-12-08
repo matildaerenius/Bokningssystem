@@ -1,7 +1,6 @@
 package gui;
 
 import data.UserDataManager;
-import models.Admin;
 import models.User;
 
 import javax.swing.*;
@@ -9,7 +8,7 @@ import java.awt.*;
 
 public class LoginPanel extends JPanel {
 
-    public LoginPanel(ViewManager parentFrame) {
+    public LoginPanel(ViewManager parentFrame, UserDataManager userDataManager) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 500));
 
@@ -90,8 +89,8 @@ public class LoginPanel extends JPanel {
 
         // Action listener för loginButton
         loginButton.addActionListener(e -> {
-            String id = idField.getText();
-            String password = new String(passwordField.getPassword());
+            String id = idField.getText().trim();
+            String password = new String(passwordField.getPassword()).trim();
 
             // Kontrollera att fälten inte är tomma
             if (id.isEmpty() || password.isEmpty()) {

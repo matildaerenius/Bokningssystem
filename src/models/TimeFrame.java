@@ -9,10 +9,10 @@ public class TimeFrame {
     private final LocalTime endTime;
     private final LocalDate date;
 
-    public TimeFrame(LocalTime startTime, LocalTime endTime, LocalDate date) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.date = date;
+    public TimeFrame(String date, String startTime, String endTime) {
+        this.date = LocalDate.parse(date);
+        this.startTime = LocalTime.parse(startTime);
+        this.endTime = LocalTime.parse(endTime);
     }
 
     public LocalTime getStartTime() {
@@ -25,5 +25,10 @@ public class TimeFrame {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+        return date + ", " + startTime + "-" + endTime;
     }
 }

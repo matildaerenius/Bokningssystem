@@ -3,14 +3,18 @@ package models;
 public abstract class User {
     private String name;
     private String email;
-    private String phonenumber;
+    private String phoneNumber;
     private String password;
 
-    public User(String name, String email, String phonenumber, String password) {
+    public User(String name, String email, String phoneNumber, String password) {
         this.name = name;
         this.email = email;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phoneNumber;
         this.password = password;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -21,8 +25,8 @@ public abstract class User {
         return email;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getPassword() {
@@ -37,8 +41,8 @@ public abstract class User {
         this.email = email;
     }
 
-    public void setphonenumber(String phoneNumber) {
-        this.phonenumber = phoneNumber;
+    public void setphoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setPassword(String password) {

@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserDataManager {
     private static UserDataManager instance;
     private final ConcurrentHashMap<String, User> users;
-    private static final String FILE_PATH = "src/data/userdata.csv";
+    private static final String FILE_PATH = "src/resources/userdata.csv";
 
     private UserDataManager() {
         users = new ConcurrentHashMap<>();
@@ -29,52 +29,45 @@ public class UserDataManager {
             String line = reader.readLine(); // Skippar första raden
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 6) {
-                    String userType = parts[5];
-                    User user = userType.equals("Customer") ?
-                            new Customer(parts[0], parts[1], parts[2], parts[3], parts[4]) :
-                            new Admin(parts[0], parts[1], parts[2], parts[3], parts[4]);
-                    users.put(user.getId(), user);
+                if (parts.length >= 5) {
+                    String id = parts[0];
+                    String name = parts[1];
+                    String email = parts[2];
+                    String phoneNumber = parts[3];
+                    String password = parts[4];
+                    String userType = parts.length == 6 ? parts[5] : "Customer";
+
+                    User user = userType.equalsIgnoreCase("Admin") ?
+                            new Admin(id, name, email, phoneNumber, password) :
+                            new Customer(id, name, email, phoneNumber, password);
+
+                    users.put(id, user); // Add to the map
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException("Error loading users from file", e);
         }
     }
-    // TODO : Denna kanske inte behövs
-    private void saveUsersToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            writer.write("ID,Name,Email,Phonenumber,Password\n");
-            for (User user : users.values()) {
-                writer.write(String.format("%s,%s,%s,%s,%s\n",
-                        user.getId(),
-                        user.getName(),
-                        user.getEmail(),
-                        user.getPhonenumber(),
-                        user.getPassword()));
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error saving users to file", e);
-        }
-    }
 
     public boolean registerUser(User newUser, String userType) {
-        if (users.containsKey(newUser.getId())) {
+        String userId = newUser instanceof Customer ? ((Customer) newUser).getPID() : ((Admin) newUser).getAdminID();
+        if (users.containsKey(userId)) {
             return false; // User finns redan med det personnumret
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            writer.write(String.format("%s,%s,%s,%s,%s\n",
-                    newUser.getId(),
+            writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
+                    userId,
                     newUser.getName(),
                     newUser.getEmail(),
-                    newUser.getPhonenumber(),
-                    newUser.getPassword()));
+                    newUser.getPhoneNumber(),
+                    newUser.getPassword(),
+                    userType));
         } catch (IOException e) {
             return false;
         }
 
-        users.put(newUser.getId(), newUser);
+        users.put(userId, newUser);
         return true;
     }
 

@@ -17,7 +17,7 @@ public class RegistrationPanel extends JPanel {
     private static final int TELEFON_NR = 3;
     private static final int EPOST = 4;
 
-    public RegistrationPanel(ViewManager parentFrame) {
+    public RegistrationPanel(ViewManager parentFrame, UserDataManager userDataManager) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 550));
 

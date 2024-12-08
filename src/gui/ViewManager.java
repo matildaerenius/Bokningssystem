@@ -1,6 +1,10 @@
 package gui;
 
+import data.AppointmentManager;
+import data.DatabaseManager;
+import data.UserDataManager;
 import models.Admin;
+import models.Customer;
 import models.User;
 
 import javax.swing.*;
@@ -10,6 +14,7 @@ public class ViewManager extends JFrame {
 
     private final CardLayout cardLayout;
     private final JPanel mainPanel;
+    private final AppointmentManager appointmentManager;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ViewManager::new);
@@ -19,16 +24,21 @@ public class ViewManager extends JFrame {
         setTitle("Bokningssystem");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
-        setResizable(false);
+//        setResizable(false);
         setFocusable(false);
+
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        UserDataManager userDataManager = UserDataManager.getInstance();
+        appointmentManager = AppointmentManager.getInstance(databaseManager);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
         // Lägger till de olika windowsen
         mainPanel.add(new StartPanel(this), "Start");
-        mainPanel.add(new LoginPanel(this), "Login");
-        mainPanel.add(new RegistrationPanel(this), "Register");
+        mainPanel.add(new LoginPanel(this, userDataManager), "Login");
+        mainPanel.add(new RegistrationPanel(this, userDataManager), "Register");
+        mainPanel.add(new AdminPanel(), "Admin");
 
         add(mainPanel);
         setLocationRelativeTo(null);
@@ -39,12 +49,19 @@ public class ViewManager extends JFrame {
         cardLayout.show(mainPanel, cardName);
     }
 
+    public void showAdminPanel() {
+        showCard("Admin");
+    }
+
     public void showBookingPanel(User user) {
-        // Skapa BookingPanel baserat på om användaren är Customer eller Admin
-        BookingPanel bookingPanel = new BookingPanel(user instanceof Admin, user.getEmail());
-        mainPanel.add(bookingPanel, "Booking");
-        cardLayout.show(mainPanel, "Booking");
+        // Kontrollera om användaren är kund eller admin
+        boolean isAdmin = user instanceof Admin;
+        if (isAdmin) {
+            showAdminPanel();
+        } else {
+            BookingPanel bookingPanel = new BookingPanel(false, user.getEmail(), AppointmentManager.getInstance(DatabaseManager.getInstance()), (Customer) user);
+            mainPanel.add(bookingPanel, "Booking");
+            showCard("Booking");
+        }
     }
 }
-
-

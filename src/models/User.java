@@ -41,10 +41,6 @@ public abstract class User {
         this.email = email;
     }
 
-    public void setphoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }

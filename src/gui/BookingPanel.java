@@ -222,10 +222,12 @@ public class BookingPanel extends JPanel {
         for (Booking booking : userBookings) {
             JPanel bookingPanel = new JPanel();
             bookingPanel.setLayout(new BorderLayout());
+            bookingPanel.setOpaque(false);
 
             JLabel bookingLabel = new JLabel(booking.getTimeFrame().getDate() + " | " +
                     booking.getTimeFrame().getStartTime() + " - " +
-                    booking.getTimeFrame().getEndTime());
+                    booking.getTimeFrame().getEndTime() + " | ");
+
             JButton cancelButton = new JButton("Avboka");
             cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
             cancelButton.setFocusable(false);

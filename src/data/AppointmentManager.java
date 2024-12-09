@@ -24,6 +24,8 @@ public class AppointmentManager {
         return instance;
     }
 
+    // TODO: Denna används inte utan görs direkt i databasemanager, ta bort eller gör om så den används här istället
+    // TODO: Uppdatera BookingPanel att använda AppointmentManager.bookAppointment() istället för att direkt göra med DatabaseManager
     public boolean bookAppointment(Customer customer, String date, String startTime, String endTime) {
         TimeFrame timeFrame = new TimeFrame(date, startTime, endTime);
         Booking booking = new Booking(timeFrame, "Booked", customer);
@@ -65,6 +67,7 @@ public class AppointmentManager {
         return false;
     }
 
+    // TODO: Kan tas bort, skrivs bara ut i terminalen och tas bookappointment bort behövs inte denna heller
     private void sendConfirmation(Booking booking) {
         System.out.println("Confirmation sent for booking: " + booking.getTimeFrame());
     }

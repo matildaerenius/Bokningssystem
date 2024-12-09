@@ -38,6 +38,7 @@ public class AppointmentManager {
         return false;
     }
 
+    // TODO: gör också så denna används inte dirre i databasemanager
     public boolean cancelAppointment(Customer customer, LocalDate date, LocalTime startTime) {
         List<Booking> bookings = databaseDao.getAppointmentsForUser(customer);
         for (Booking booking : bookings) {

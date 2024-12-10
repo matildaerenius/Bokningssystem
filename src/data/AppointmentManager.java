@@ -39,11 +39,10 @@ public class AppointmentManager {
     }
 
     // TODO: gör också så denna används inte dirre i databasemanager
-    public boolean cancelAppointment(Customer customer, LocalDate date, LocalTime startTime) {
-        List<Booking> bookings = databaseDao.getAppointmentsForUser(customer);
+    public boolean cancelAppointment(Booking b) {
+        List<Booking> bookings = databaseDao.getAppointmentsForUser(b.getCustomer());
         for (Booking booking : bookings) {
-            if (booking.getTimeFrame().getDate().equals(date) &&
-                    booking.getTimeFrame().getStartTime().equals(startTime)) {
+            if (booking.getTimeFrame().equals(b.getTimeFrame())) {
                 // Gör bokningen tillgänglig
                 booking.setCustomer(null);
                 booking.setDescription("Available");

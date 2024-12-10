@@ -233,7 +233,7 @@ public class BookingPanel extends JPanel {
             cancelButton.setFocusable(false);
             cancelButton.setBackground(Color.WHITE);
             cancelButton.addActionListener(e -> {
-                appointmentManager.cancelAppointment(customer, booking.getTimeFrame().getDate(), booking.getTimeFrame().getStartTime());
+                appointmentManager.cancelAppointment(new Booking(booking.getTimeFrame(), booking.getDescription(), customer));
                 JOptionPane.showMessageDialog(this, "Bokning avbokad");
                 refreshBookings(); // Uppdatera listan
             });

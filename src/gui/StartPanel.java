@@ -6,6 +6,9 @@ import java.awt.*;
 public class StartPanel extends JPanel {
 
     public StartPanel(ViewManager parentFrame) {
+
+        Font font = new Font("Times New Roman", Font.BOLD, 16);
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 500));
 
@@ -19,7 +22,7 @@ public class StartPanel extends JPanel {
 
         // Texten högst upp
         JLabel welcomeLabel = new JLabel("Logga in", SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        welcomeLabel.setFont(font.deriveFont(30.0f));
         welcomeLabel.setForeground(Color.BLACK);
         welcomeLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Padding runt texten
 
@@ -39,7 +42,7 @@ public class StartPanel extends JPanel {
         // Stylar knapparna
         JButton[] loginButtons = {userLoginButton, businessLoginButton};
         for (JButton button : loginButtons) {
-            button.setFont(new Font("Times New Roman", Font.BOLD, 18));
+            button.setFont(font.deriveFont(18.0f));
             button.setPreferredSize(new Dimension(240, 40));
             button.setFocusable(false);
             button.setBackground(Color.WHITE); // TILLFÄLLIG FÄRG kanske
@@ -66,7 +69,7 @@ public class StartPanel extends JPanel {
 
         // "Registrera dig"-länken
         JLabel registerLabel = new JLabel("<html><u>Registrera dig</u></html>", SwingConstants.CENTER);
-        registerLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        registerLabel.setFont(font.deriveFont(Font.PLAIN));
         registerLabel.setForeground(Color.BLUE);
         registerLabel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Gör muspekaren till en hand vid hovring över
         registerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 60, 0)); // Padding ovanför länken

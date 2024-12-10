@@ -37,7 +37,7 @@ public class ViewManager extends JFrame {
         // Lägger till de olika windowsen
         mainPanel.add(new StartPanel(this), "Start");
         mainPanel.add(new LoginPanel(this, userDataManager), "Login");
-        mainPanel.add(new RegistrationPanel(this, userDataManager), "Register");
+        mainPanel.add(new RegistrationPanel(this), "Register");
         mainPanel.add(new AdminPanel(), "Admin");
 
         add(mainPanel);
@@ -59,7 +59,7 @@ public class ViewManager extends JFrame {
         if (isAdmin) {
             showAdminPanel();
         } else {
-            BookingPanel bookingPanel = new BookingPanel(false, user.getEmail(), AppointmentManager.getInstance(DatabaseManager.getInstance()), (Customer) user);
+            BookingPanel bookingPanel = new BookingPanel(user.getEmail(), AppointmentManager.getInstance(DatabaseManager.getInstance()), (Customer) user);
             mainPanel.add(bookingPanel, "Booking");
             showCard("Booking");
         }

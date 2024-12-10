@@ -21,9 +21,8 @@ public class BookingPanel extends JPanel {
     private JLabel monthLabel;
     private JPanel timePanel;
     private JPanel bookingsPanel;
-    private boolean isAdmin;
 
-    public BookingPanel(boolean isAdmin, String email, AppointmentManager appointmentManager, Customer customer) {
+    public BookingPanel(String email, AppointmentManager appointmentManager, Customer customer) {
         this.customer = customer;
         this.appointmentManager = appointmentManager;
         currentMonth = LocalDate.now();

@@ -9,15 +9,10 @@ import java.awt.*;
 
 public class RegistrationPanel extends JPanel {
 
-    //TODO egen enum klass för dessa
-    //Index i String[] labelNames[] för att göra det tydligare vad som är på vilken plats
-    private static final int FIRSTNAME = 0;
-    private static final int LASTNAME = 1;
-    private static final int PERSON_NR = 2;
-    private static final int TELEFON_NR = 3;
-    private static final int EPOST = 4;
-
-    public RegistrationPanel(ViewManager parentFrame, UserDataManager userDataManager) {
+    public RegistrationPanel(ViewManager parentFrame) {
+        
+        Font font = new Font("Times New Roman", Font.BOLD, 16); //Används för alla typsnitt, ändra med .deriveFont()
+        
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 550));
 
@@ -28,7 +23,6 @@ public class RegistrationPanel extends JPanel {
         JLabel backgroundLabel = new JLabel(scaledIcon);
         backgroundLabel.setLayout(new BorderLayout()); // Gör så att komponenter kan placeras ovanpå
         add(backgroundLabel);
-
 
         // Panel för registreringsfält
         JPanel fieldPanel = new JPanel();
@@ -44,6 +38,12 @@ public class RegistrationPanel extends JPanel {
                 "Telefonnummer:",
                 "Epostadress:"
         };
+        
+        final int FIRSTNAME = 0;
+        final int LASTNAME = 1;
+        final int PERSON_NR = 2;
+        final int TELEFON_NR = 3;
+        final int EPOST = 4;
 
         JLabel[] labels = new JLabel[labelNames.length]; //Arrays för att spara labels och fields
         JTextField[] fields = new JTextField[labelNames.length];
@@ -51,23 +51,23 @@ public class RegistrationPanel extends JPanel {
         //loopar igenom labelNames
         for (int i = 0; i < labelNames.length; i++) {
             labels[i] = new JLabel(labelNames[i]); //label med texten som är i labelNames på det indexet
-            labels[i].setFont(new Font("Times New Roman", Font.BOLD, 16));
+            labels[i].setFont(font);
             fieldPanel.add(labels[i]); //lägger till i fieldPanel
             fields[i] = new JTextField();
-            fields[i].setFont(new Font("Times New Roman", Font.PLAIN, 14));
+            fields[i].setFont(font.deriveFont(14.0f).deriveFont(Font.PLAIN));
             fieldPanel.add(fields[i]); //lägger till i fieldPanel
             fieldPanel.add(Box.createVerticalStrut(10)); //Box för mellanrum
         }
 
         JLabel passwordLabel = new JLabel("Lösenord:");
-        passwordLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        passwordLabel.setFont(font);
         JPasswordField passwordField = new JPasswordField();
-        passwordField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        passwordField.setFont(font.deriveFont(14.0f));
 
         // Checkbox för att visa/dölja lösenord
         JCheckBox showPasswordCheckBox = new JCheckBox("Visa lösenord");
         showPasswordCheckBox.setOpaque(false); // Gör checkboxen genomskinlig
-        showPasswordCheckBox.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        showPasswordCheckBox.setFont(font.deriveFont(14.0f));
         showPasswordCheckBox.addActionListener(e -> {
             if (showPasswordCheckBox.isSelected()) {
                 passwordField.setEchoChar((char) 0); // Visar texten i lösenordsfältet
@@ -90,13 +90,13 @@ public class RegistrationPanel extends JPanel {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
 
         JButton registerButton = new JButton("Registrera dig");
-        registerButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        registerButton.setFont(font);
         registerButton.setPreferredSize(new Dimension(150, 30));
         registerButton.setBackground(Color.WHITE);
         registerButton.setForeground(Color.BLACK);
 
         JButton backButton = new JButton("Tillbaka");
-        backButton.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        backButton.setFont(font.deriveFont(Font.BOLD));
         backButton.setPreferredSize(new Dimension(100, 30));
         backButton.setBackground(Color.WHITE);
         backButton.setForeground(Color.BLACK);

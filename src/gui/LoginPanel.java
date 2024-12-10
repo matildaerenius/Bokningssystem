@@ -10,6 +10,9 @@ import java.awt.*;
 public class LoginPanel extends JPanel {
 
     public LoginPanel(ViewManager parentFrame, UserDataManager userDataManager) {
+
+        Font font = new Font("Times New Roman", Font.BOLD, 30);
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 500));
 
@@ -23,7 +26,7 @@ public class LoginPanel extends JPanel {
 
         // Texten högst upp
         JLabel headerText = new JLabel("Logga in", SwingConstants.CENTER);
-        headerText.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        headerText.setFont(font);
         headerText.setForeground(Color.BLACK);
         headerText.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0)); // Padding runt texten
 
@@ -34,21 +37,21 @@ public class LoginPanel extends JPanel {
         fieldPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
         JLabel idLabel = new JLabel("Personnummer / Org.nummer:");
-        idLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        idLabel.setFont(font.deriveFont(16.0f));
         JTextField idField = new JTextField();
-        idField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        idField.setFont(font.deriveFont(Font.PLAIN).deriveFont(14.0f));
         idField.setMaximumSize(new Dimension(550, 25));
 
         JLabel passwordLabel = new JLabel("Lösenord:");
-        passwordLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        passwordLabel.setFont(font.deriveFont(16.0f));
         JPasswordField passwordField = new JPasswordField();
-        passwordField.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        passwordField.setFont(font.deriveFont(Font.PLAIN).deriveFont(14.0f));
         passwordField.setMaximumSize(new Dimension(550, 25));
 
         // Checkbox för att visa/dölja lösenordet
         JCheckBox showPasswordCheckBox = new JCheckBox("Visa lösenord");
         showPasswordCheckBox.setOpaque(false); // Gör checkboxen genomskinlig
-        showPasswordCheckBox.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        showPasswordCheckBox.setFont(font.deriveFont(Font.PLAIN).deriveFont(14.0f));
         showPasswordCheckBox.addActionListener(e -> {
             if (showPasswordCheckBox.isSelected()) {
                 passwordField.setEchoChar((char) 0); // Visar texten i lösenordsfältet
@@ -76,14 +79,14 @@ public class LoginPanel extends JPanel {
 
         JButton loginButton = new JButton("Logga in");
         loginButton.setFocusable(false);
-        loginButton.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        loginButton.setFont(font.deriveFont(16.0f));
         loginButton.setPreferredSize(new Dimension(150, 30));
         loginButton.setBackground(Color.WHITE);
         loginButton.setForeground(Color.BLACK);
 
         JButton backButton = new JButton("Tillbaka");
         backButton.setFocusable(false);
-        backButton.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        backButton.setFont(font.deriveFont(14.0f));
         backButton.setPreferredSize(new Dimension(100, 30));
         backButton.setBackground(Color.WHITE);
         backButton.setForeground(Color.BLACK);

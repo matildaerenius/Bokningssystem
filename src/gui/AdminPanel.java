@@ -12,6 +12,9 @@ public class AdminPanel extends JPanel {
     private final JTextArea bookingDetails;
 
     public AdminPanel() {
+
+        Font font = new Font("Times New Roman", Font.BOLD, 20);
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400, 500));
 
@@ -31,13 +34,13 @@ public class AdminPanel extends JPanel {
         // Rubrik
         JLabel headerLabel = new JLabel("Adminvy", SwingConstants.CENTER);
         headerLabel.setForeground(Color.BLACK);
-        headerLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        headerLabel.setFont(font);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         overlayPanel.add(headerLabel, BorderLayout.NORTH);;
 
         // Textområdet för att visa bokningar
         bookingDetails = new JTextArea();
-        bookingDetails.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        bookingDetails.setFont(font.deriveFont(Font.PLAIN).deriveFont(14.0f));
         bookingDetails.setForeground(Color.BLACK);
         bookingDetails.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(bookingDetails);
@@ -53,8 +56,8 @@ public class AdminPanel extends JPanel {
         JButton refreshButton = new JButton("Uppdatera Bokningar");
         JButton addTimeButton = new JButton("Lägg till Tid");
 
-        refreshButton.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        addTimeButton.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        refreshButton.setFont(font.deriveFont(14.0f));
+        addTimeButton.setFont(font.deriveFont(14.0f));
 
         refreshButton.setBackground(Color.WHITE);
         addTimeButton.setBackground(Color.WHITE);

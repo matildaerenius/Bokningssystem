@@ -11,6 +11,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
+// TODO: fixa så kalendern inte ändrar storlek osv. när man väljer ett datum
 public class BookingPanel extends JPanel {
     private final AppointmentManager appointmentManager;
     private final Customer customer;
@@ -95,6 +96,7 @@ public class BookingPanel extends JPanel {
 
         calendarModel = new DefaultTableModel(null, new String[]{"Mån", "Tis", "Ons", "Tors", "Fre", "Lör", "Sön"});
         calendarTable = new JTable(calendarModel) {
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -138,9 +140,13 @@ public class BookingPanel extends JPanel {
     }
 
     private void setupTimePanel(JLabel parentPanel, GridBagConstraints gbc) {
-        timePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        timePanel = new JPanel();
         timePanel.setBorder(BorderFactory.createTitledBorder("Tillgängliga tider"));
         timePanel.setOpaque(false);
+
+        timePanel.setLayout(new BoxLayout(timePanel, BoxLayout.Y_AXIS));
+        timePanel.setPreferredSize(new Dimension(400, 250));
+
         timePanel.revalidate();
         timePanel.repaint();
         parentPanel.add(timePanel, gbc);
@@ -191,12 +197,15 @@ public class BookingPanel extends JPanel {
 
                 JButton timeButton = new JButton(booking.getTimeFrame().getStartTime() + " - " +
                         booking.getTimeFrame().getEndTime());
+                timeButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+                timeButton.setPreferredSize(new Dimension(300, 30));
                 timeButton.setBackground(Color.WHITE);
                 timeButton.addActionListener(e -> handleBooking(selectedDate, booking));
                 timePanel.add(timeButton);
+                timePanel.add(Box.createRigidArea(new Dimension(0, 8))); // Lägger mellanrum mellan knapparna
             }
         }
-
+        timePanel.setPreferredSize(new Dimension(400, 250));
         timePanel.revalidate();
         timePanel.repaint();
     }

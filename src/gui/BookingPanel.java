@@ -8,6 +8,8 @@ import models.Customer;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -114,6 +116,12 @@ public class BookingPanel extends JPanel {
         parentPanel.add(calendarPanel, gbc);
 
         updateCalendar(); // Fyller kalendern initialt
+        calendarTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                updateTimePanel();
+            }
+        });
     }
 
     private void setupBookingsPanel(JLabel parentPanel, GridBagConstraints gbc) {
@@ -215,11 +223,18 @@ public class BookingPanel extends JPanel {
                 "Bekräfta bokning",
                 JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            DatabaseManager dbManager = DatabaseManager.getInstance();
-            dbManager.updateBookingStatus(booking.getTimeFrame(), customer); // Associerar bokningen med kunden
-            JOptionPane.showMessageDialog(this, "Tiden har bokats: " + date + " kl " + booking.getTimeFrame().getStartTime());
-            updateTimePanel(); // Uppdatera tillgängliga tider
-            refreshBookings(); // Uppdatera "Mina bokningar"
+            boolean success = appointmentManager.bookAppointment(customer,
+                    booking.getTimeFrame().getDate().toString(),
+                    booking.getTimeFrame().getStartTime().toString(),
+                    booking.getTimeFrame().getEndTime().toString());
+
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Tiden har bokats: " + date + " kl " + booking.getTimeFrame().getStartTime());
+                updateTimePanel();
+                refreshBookings();
+            } else {
+                JOptionPane.showMessageDialog(this, "Det gick inte att boka tiden. Kan redan vara upptagen.");
+            }
         }
     }
 
@@ -241,9 +256,15 @@ public class BookingPanel extends JPanel {
             cancelButton.setFocusable(false);
             cancelButton.setBackground(Color.WHITE);
             cancelButton.addActionListener(e -> {
-                appointmentManager.cancelAppointment(new Booking(booking.getTimeFrame(), booking.getDescription(), customer));
-                JOptionPane.showMessageDialog(this, "Bokning avbokad");
-                refreshBookings(); // Uppdatera listan
+                boolean cancelled = appointmentManager.cancelAppointment(customer,
+                        booking.getTimeFrame().getDate().toString(),
+                        booking.getTimeFrame().getStartTime().toString());
+                if (cancelled) {
+                    JOptionPane.showMessageDialog(this, "Bokning avbokad");
+                    refreshBookings();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Kunde inte avboka.");
+                }
             });
 
             bookingPanel.add(bookingLabel, BorderLayout.CENTER);

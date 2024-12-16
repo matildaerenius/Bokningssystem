@@ -25,30 +25,47 @@ public class AppointmentManager {
 
 
     public boolean bookAppointment(Customer customer, String date, String startTime, String endTime) {
-        TimeFrame timeFrame = new TimeFrame(date, startTime, endTime);
+        LocalDate localDate = LocalDate.parse(date);
+        TimeFrame desiredFrame = new TimeFrame(date, startTime, endTime);
 
-        // Kontrollera överlappningar
-        if (timeFrameOverlaps(timeFrame)) {
+        // Söker efter en redan "Available" bokning med samma datum och tid
+        List<Booking> bookings = databaseDao.getAllBookings();
+        Booking availableBooking = null;
+        for (Booking b : bookings) {
+            if (b.getTimeFrame().getDate().equals(localDate)
+                    && b.getTimeFrame().getStartTime().equals(desiredFrame.getStartTime())
+                    && b.getTimeFrame().getEndTime().equals(desiredFrame.getEndTime())
+                    && "Available".equals(b.getDescription())
+                    && !b.isBooked()) {
+                availableBooking = b;
+                break;
+            }
+        }
+
+        if (availableBooking == null) {
             return false;
         }
 
-        Booking booking = new Booking(timeFrame, "Booked", customer);
-        databaseDao.createBooking(booking);
-        sendConfirmation(booking);
+        // Kontrollerar om tiden overlappar någon annan bokning
+        if (timeFrameOverlaps(localDate, desiredFrame, availableBooking)) {
+            return false;
+        }
 
+        availableBooking.setCustomer(customer);
+        availableBooking.setDescription("Booked");
+        databaseDao.updateBookingStatus(availableBooking.getTimeFrame(), customer);
+        sendConfirmation(availableBooking);
         return true;
     }
 
 
-    public boolean cancelAppointment(Customer customer, String date, String startTime) {
-        // Kollar om bokningen finns hos user
-        List<Booking> bookings = databaseDao.getAppointmentsForUser(customer);
-        LocalDate localDate = LocalDate.parse(date);
 
+    public boolean cancelAppointment(Customer customer, String date, String startTime) {
+        LocalDate localDate = LocalDate.parse(date);
+        List<Booking> bookings = databaseDao.getAppointmentsForUser(customer);
         for (Booking booking : bookings) {
             if (booking.getTimeFrame().getDate().equals(localDate)
                     && booking.getTimeFrame().getStartTime().toString().equals(startTime)) {
-
                 booking.setCustomer(null);
                 booking.setDescription("Available");
                 databaseDao.updateBookingStatus(booking.getTimeFrame(), null);
@@ -58,13 +75,13 @@ public class AppointmentManager {
         return false;
     }
 
-    private boolean timeFrameOverlaps(TimeFrame newTimeFrame) {
+    private boolean timeFrameOverlaps(LocalDate date, TimeFrame newTimeFrame, Booking currentBooking) {
         List<Booking> bookings = databaseDao.getAllBookings();
-        LocalDate date = newTimeFrame.getDate();
         for (Booking booking : bookings) {
+            if (booking == currentBooking) continue;
+
             if (booking.getTimeFrame().getDate().equals(date)) {
                 TimeFrame existingFrame = booking.getTimeFrame();
-
                 if (existingFrame.getEndTime().isAfter(newTimeFrame.getStartTime()) &&
                         existingFrame.getStartTime().isBefore(newTimeFrame.getEndTime())) {
                     return true;
@@ -73,6 +90,7 @@ public class AppointmentManager {
         }
         return false;
     }
+
 
     private void sendConfirmation(Booking booking) {
         System.out.println("Confirmation sent for booking: " + booking.getTimeFrame());

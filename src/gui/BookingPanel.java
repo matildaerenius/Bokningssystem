@@ -8,6 +8,8 @@ import models.Customer;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -103,7 +105,12 @@ public class BookingPanel extends JPanel {
         calendarTable.setRowHeight(30);
         calendarTable.setOpaque(false);
         calendarTable.setCellSelectionEnabled(true);
-        calendarTable.getSelectionModel().addListSelectionListener(e -> updateTimePanel());
+        calendarTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                updateTimePanel();
+            }
+        });
 
         JScrollPane calendarScrollPane = new JScrollPane(calendarTable);
         calendarScrollPane.setOpaque(false);
